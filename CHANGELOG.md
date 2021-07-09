@@ -1,6 +1,42 @@
 # Changelog
 
 
+## [1.4.1] - 2021-6-1
+
+* typo fix
+
+## [1.4.0] - 2021-5-25
+
+* Added the `queue` option to the [hx-trigger](/attributes/hx-trigger) attribute, allowing you to specify how events
+  should be queued when they are received with a request in flight
+* The `htmx.config.useTemplateFragments` option was added, allowing you to use HTML template tags for parsing content
+  from the server.  This allows you to use Out of Band content when returning things like table rows, but it is not
+  IE11 compatible.
+* The `defaultSettleDelay` was dropped to 20ms from 100ms
+* Introduced a new synthetic event, [intersect](/docs#pecial-events) that allows you to trigger when an item is scrolled into view
+  as specified by the `IntersectionObserver` API
+* Fixed timing issue that caused exceptions in the `reveal` logic when scrolling at incredible speeds - <https://github.com/bigskysoftware/htmx/issues/463>
+* Fixed bug causing SVG titles to be incorrectly used as page title - <https://github.com/bigskysoftware/htmx/issues/459>
+* Boosted forms that issue a GET will now push the URL by default - <https://github.com/bigskysoftware/htmx/issues/485>
+* Better dispatch of request events when an element is removed from the DOM
+* Fixed a bug causing `hx-prompt` to fail
+* The `htmx.config.withCredentials` option was added, to send credentials with ajax requests (default is `false`)
+* The `throttle` option on `hx-trigger` does not delay the initial request any longer
+* The `meta` key is ignored on boosted links
+* `<script>` tags are now evaluated in the global scope
+* `hx-swap` now supports the `none` option
+* Safari text selection bug - <https://github.com/bigskysoftware/htmx/issues/438>
+  
+## [1.3.3] - 2021-4-5
+
+* Added the [`hx-disabled`](/docs#security) attribute to allow htmx to be turned off for parts of the DOM
+* SSE now uses a full-jitter exponential backoff algorithm on reconnection, using the `htmx.config.wsReconnectDelay`
+  setting
+
+## [1.3.2] - 2021-3-9
+
+* Bug fixes
+
 ## [1.3.1] - 2021-3-9
 
 * IE11 fixes

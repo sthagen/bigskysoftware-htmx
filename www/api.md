@@ -98,6 +98,8 @@ Note that using a [meta tag](/docs/#config) is the preferred mechanism for setti
 * `settlingClass:'htmx-settling'` - string: the class to place on target elements when htmx is in the settling phase
 * `swappingClass:'htmx-swapping'` - string: the class to place on target elements when htmx is in the swapping phase
 * `allowEval:true` - boolean: allows the use of eval-like functionality in htmx, to enable `hx-vars`, trigger conditions & script tag evaluation.  Can be set to `false` for CSP compatibility
+* `useTemplateFragments:false` - boolean: use HTML template tags for parsing content from the server.  This allows you to use Out of Band content when returning things like table rows, but it is *not* IE11 compatible.
+* `withCredentials:false` - boolean: allow cross-site Access-Control requests using credentials such as cookies, authorization headers or TLS client certificates
 * `wsReconnectDelay:full-jitter` - string/function: the default implementation of `getWebSocketReconnectDelay` for reconnecting after unexpected connection loss by the event code `Abnormal Closure`, `Service Restart` or `Try Again Later`
 
 ##### Example
@@ -122,7 +124,7 @@ to provide custom SSE setup.
   // override SSE event sources to not use credentials
   htmx.createEventSource = function(url) {
     return new EventSource(url, {withCredentials:false});
-  });
+  };
 ```
 
 ### <a name="createWebSocket"></a> Property -  [`htmx.createWebSocket`](#createWebSocket)
@@ -139,7 +141,7 @@ to provide custom WebSocket setup.
 ```js
   // override WebSocket to use a specific protocol
   htmx.createWebSocket = function(url) {
-    return new WebSocket(url, ['wss']);;
+    return new WebSocket(url, ['wss']);
   };
 ```
 
@@ -259,7 +261,7 @@ or
     htmx.off("click", myEventListener);
 
     // remove this click listener from the given div
-    var allParagraphsInMyDiv = htmx.off("#my-div", "click", myEventListener)
+    htmx.off("#my-div", "click", myEventListener)
 ```
 
 ### <a name="on"></a> Method -  [`htmx.on()`](#on)
@@ -308,6 +310,8 @@ initializing the content with a javascript library
 
 Parses an interval string consistent with the way htmx does.  Useful for plugins that have timing-related attributes.
 
+Caution: Accepts an int followed by either `s` or `ms`. All other values use `parseFloat`
+
 ##### Parameters
 
 * `str` - timing string
@@ -317,6 +321,9 @@ Parses an interval string consistent with the way htmx does.  Useful for plugins
 ```js
     // returns 3000
     var milliseconds = htmx.parseInterval("3s");
+    
+    // returns 3 - Caution
+    var milliseconds = htmx.parseInterval("3m");
 ```
 
 ### <a name="process"></a> Method -  [`htmx.process()`](#process)
@@ -410,7 +417,7 @@ Toggles the given class on an element
 
 ```js
   // toggles the selected class on tab2
-  htmx.toggle(htmx.find("#tab2"), "selected");
+  htmx.toggleClass(htmx.find("#tab2"), "selected");
 ```
 
 ### <a name="trigger"></a> Method -  [`htmx.trigger()`](#trigger)
@@ -432,7 +439,7 @@ Triggers a given event on an element
 
 ### <a name="values"></a> Method -  [`htmx.values()`](#values)
 
-Returns the intput values that would resolve for a given element via the htmx value resolution mechanism
+Returns the input values that would resolve for a given element via the htmx value resolution mechanism
 
 ##### Parameters
 

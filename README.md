@@ -16,7 +16,7 @@ directly in HTML, using [attributes](https://htmx.org/reference#attributes), so 
 [modern user interfaces](https://htmx.org/examples) with the [simplicity](https://en.wikipedia.org/wiki/HATEOAS) and 
 [power](https://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm) of hypertext
 
-htmx is small ([~9k min.gz'd](https://unpkg.com/htmx.org/dist/)), 
+htmx is small ([~10k min.gz'd](https://unpkg.com/htmx.org/dist/)), 
 [dependency-free](https://github.com/bigskysoftware/htmx/blob/master/package.json),
 [extendable](https://htmx.org/extensions) & 
 IE11 compatible
@@ -35,7 +35,7 @@ By removing these arbitrary constraints htmx completes HTML as a
 
 ```html
   <!-- Load from unpkg -->
-  <script src="https://unpkg.com/htmx.org@1.3.1" ></script>
+  <script src="https://unpkg.com/htmx.org@1.4.1" ></script>
   <!-- have a button POST a click via AJAX -->
   <button hx-post="/clicked" hx-swap="outerHTML">
     Click Me
@@ -60,6 +60,7 @@ htmx is the successor to [intercooler.js](http://intercoolerjs.org)
 * if you are adding a feature, consider doing it as an [extension](https://htmx.org/extensions) instead to
 keep the core htmx code tidy
 * development pull requests should be against the `dev` branch, docs fixes can be made directly against `master`
+* No time? Then [become a sponsor](https://github.com/sponsors/bigskysoftware#sponsors)
 
 ## haiku
 

@@ -34,6 +34,7 @@ title: </> htmx - Documentation
 * [debugging](#debugging)
 * [hyperscript](#hyperscript)
 * [3rd party integration](#3rd-party)
+* [security](#security)
 * [configuring](#config)
 
 </div>
@@ -60,17 +61,17 @@ This anchor tag tells a browser:
 With that in mind, consider the following bit of HTML:
 
 ``` html
-  <div hx-post="/clicked"
+  <button hx-post="/clicked"
        hx-trigger="click"
        hx-target="#parent-div"
        hx-swap="outerHTML">
     Click Me!
-  </div>
+  </button>
 ```
 
 This tells htmx:
 
-> "When a user clicks on this div, issue an HTTP POST request to '/clicked' and use the content from the response
+> "When a user clicks on this button, issue an HTTP POST request to '/clicked' and use the content from the response
 >  to replace the element with the id `parent-div` in the DOM"
 
 Htmx extends and generalizes the core idea of HTML as a hypertext, opening up many more possibilities directly
@@ -100,13 +101,13 @@ It can be used via [NPM](https://www.npmjs.com/) as "`htmx.org`" or downloaded o
 [unpkg](https://unpkg.com/browse/htmx.org/) or your other favorite NPM-based CDN:
 
 ``` html
-    <script src="https://unpkg.com/htmx.org@1.3.1"></script>
+    <script src="https://unpkg.com/htmx.org@1.4.1"></script>
 ```
 
 For added security, you can load the script using [Subresource Integrity (SRI)](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity).
 
 ``` html
-    <script src="https://unpkg.com/htmx.org@1.3.1" integrity="sha384-fIzHaKYVrEFxI4/dWpMzf9tlIUPU0HmW8w/8s4nQHvZmGQhXhnEM6aenC6QFkd7e" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org@1.4.1" integrity="sha384-1P2DfVFAJH2XsYTakfc6eNhTVtyio74YNA1tc6waJ0bO+IfaexSWXc2x62TgBcXe" crossorigin="anonymous"></script>
 ```
 
 ## <a name="ajax"></a> [AJAX](#ajax)
@@ -210,6 +211,9 @@ htmx provides a few special events for use in [hx-trigger](/attributes/hx-trigge
 
 * `load` - fires once when the element is first loaded
 * `revealed` - fires once when an element first scrolls into the viewport
+* `intersect` - fires once when an element first intersects the viewport.  This supports two additional options:
+    * `root:<selector>` - a CSS selector of the root element for intersection
+    * `threshold:<float>` - a floating point number between 0.0 and 1.0, indicating what amount of intersection to fire the event on
 
 You can also use custom events to trigger requests if you have an advanced use case.
 
@@ -595,7 +599,7 @@ htmx supports some htmx-specific response headers:
 
 For more on the `HX-Trigger` headers, see [`HX-Trigger` Response Headers](/headers/hx-trigger).
 
-### <a name="request-operations"></a> [Request Order of Operations](#request-opeartions)
+### <a name="request-operations"></a> [Request Order of Operations](#request-operations)
 
 The order of operations in a htmx request are:
 
@@ -776,6 +780,15 @@ Hyperscript is *not* required when using htmx, anything you can do in hyperscrip
  another javascript library like jQuery, but the two technologies were designed with one another in mind and play
  well together.
 
+### Installing Hyperscript
+ 
+ To use hyperscript in combination with htmx, you need to [install the hyperscript library](https://unpkg.com/browse/hyperscript.org/)
+ either via a CDN or locally.  See the [hyperscript website](https://hyperscript.org) for the latest version of the
+ library.  
+ 
+ When hyperscript is included, it will automatically integrate with htmx and begin processing all hyperscripts embedded
+ in your HTML.
+
 ### Events & Hyperscript
 
 Hyperscript was designed to help address features and functionality from intercooler.js that are not implemented in htmx
@@ -900,6 +913,33 @@ htmx attributes in it, you would need to add a call to `htmx.process()` like thi
     .then(data => { myDiv.innerHTML = data; htmx.process(myDiv); } );
 ```
 
+## <a name="security"></a>[Security](#security)
+
+htmx allows you to define logic directly in your DOM.  This has a number of advantages, the
+largest being [Locality of Behavior](https://htmx.org/essays/locality-of-behaviour/) making your system 
+more coherent.
+
+One concern with this approach, however, is security. This is especially the case if you are injecting user-created
+content into your site without any sort of HTML escaping discipline.  
+
+You should, of course, escape all 3rd party untrusted content that is injected into your site to prevent, among other issues, [XSS attacks](https://en.wikipedia.org/wiki/Cross-site_scripting). Attributes starting with `hx-` and `data-hx`, as well as inline `<script>` tags should be filtered.
+
+It is important to understand that htmx does *not* require inline scripts or `eval()` for most of its features. You (or your security team) may use a [CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) that intentionally disallows inline scripts and the use of `eval()`. This, however, will have *no effect* on htmx functionality, which will still be able to execute JavaScript code placed in htmx attributes and may be a security concern.
+
+To address this, if you don't want a particular part of the DOM to allow for htmx functionality, you can place the
+`hx-disable` or `data-hx-disable` attribute on the enclosing element of that area.  
+
+This will prevent htmx from executing within that area in the DOM:
+
+```html
+  <div hx-disable>
+    <%= user_content %>
+  </div>
+```
+
+This approach allows you to enjoy the benefits of [Locality of Behavior](https://htmx.org/essays/locality-of-behaviour/) 
+while still providing additional safety if your HTML-escaping discipline fails. 
+
 ## <a name="config"></a>[Configuring htmx](#config)
 
 Htmx has some configuration options that can be accessed either programatically or declaratively.  They are
@@ -922,6 +962,7 @@ listed below:
 |  `htmx.config.swappingClass` | defaults to `htmx-swapping`
 |  `htmx.config.allowEval` | defaults to `true`
 |  `htmx.config.wsReconnectDelay` | defaults to `full-jitter`
+|  `htmx.config.disableSelector` | defaults to `[disable-htmx], [data-disable-htmx]`, htmx will not process elements with this attribute on it or a parent
 
 </div>
 

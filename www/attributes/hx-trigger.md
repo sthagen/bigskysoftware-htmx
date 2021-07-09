@@ -40,7 +40,7 @@ Conditions can also refer to global functions or state
 And can also be combined using the standard javascript syntax
 
 ```html
-<div hx-get="/clicked" hx-trigger="click[ctrlKey&&shfitKey]">Control-Shift Click Me</div>
+<div hx-get="/clicked" hx-trigger="click[ctrlKey&&shiftKey]">Control-Shift Click Me</div>
 ```
 
 Note that all symbols used in the expression will be resolved first against the triggering event, and then next
@@ -63,6 +63,11 @@ triggers from elements that might not be in the DOM at the point of initializati
 but with a target filter for a child element
 * `consume` - if this option is included the event will not trigger any other htmx requests on parents (or on elements
   listening on parents)
+* `queue:<queue option>` - determines how events are queued if an event occurs while a request for another event is in flight.  Options are:
+  * `first` - queue the first event
+  * `last` - queue the last event (default)
+  * `all` - queue all events (issue a request for each event)
+  * `none` - do not queue new events
 
 Here is an example of a search box that searches on `keyup`, but only if the search value has changed
 and the user hasn't typed anything new for 1 second:
@@ -79,6 +84,23 @@ There are two special events that are non-standard that htmx supports:
 
 * `load` - triggered on load (useful for lazy-loading something)
 * `revealed` - triggered when an element is scrolled into the viewport (also useful for lazy-loading)
+
+### Triggering via the `HX-Trigger` header 
+
+If you're trying to fire an event from <code>HX-Trigger</code> response  header, you will likely want to 
+use the `from:body` modifier.  E.g. if you send a header like this <code>HX-Trigger: my-custom-event</code> 
+with a response, an element would likely need to look like this:
+
+```html
+  <div hx-get="/example" hx-trigger="my-custom-event from:body">
+    Triggered by HX-Trigger header...
+  </div>
+```
+
+in order to fire.
+  
+This is because the header will likely trigger the event in a different DOM hierarchy than the element that you
+wish to be triggered.  For a similar reason, you will often listen for hot keys from the body.
 
 ### Polling
 
@@ -100,6 +122,10 @@ Multiple triggers can be provided, seprarated by commas.  Each trigger gets its 
   <div hx-get="/news" hx-trigger="load, click delay:1s"></div>
 ```
 This example will load `/news` immediate on the page load, and then again with a delay of one second after each click.
+
+### Via Javascript
+
+The AJAX request can be triggered via Javascript [`htmx.trigger()`](/api#trigger), too.
 
 ### Notes
 
