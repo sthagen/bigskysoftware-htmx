@@ -498,7 +498,7 @@ If you wish to establish a `WebSocket` connection in htmx, you use the [hx-ws](/
   </div>
 ```
 
-The `source` declaration established the connection, and the `send` declaration tells the form to submit values to the
+The `connect` declaration established the connection, and the `send` declaration tells the form to submit values to the
 socket on `submit`.
 
 More details can be found on the [hx-ws attribute page](/attributes/hx-ws)
@@ -961,6 +961,7 @@ listed below:
 |  `htmx.config.settlingClass` | defaults to `htmx-settling`
 |  `htmx.config.swappingClass` | defaults to `htmx-swapping`
 |  `htmx.config.allowEval` | defaults to `true`
+|  `htmx.config.useTemplateFragments` | defaults to `false`, HTML template tags for parsing content from the server (not IE11 compatible!)
 |  `htmx.config.wsReconnectDelay` | defaults to `full-jitter`
 |  `htmx.config.disableSelector` | defaults to `[disable-htmx], [data-disable-htmx]`, htmx will not process elements with this attribute on it or a parent
 
