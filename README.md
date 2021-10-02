@@ -35,7 +35,7 @@ By removing these arbitrary constraints htmx completes HTML as a
 
 ```html
   <!-- Load from unpkg -->
-  <script src="https://unpkg.com/htmx.org@1.5.0" ></script>
+  <script src="https://unpkg.com/htmx.org@1.6.0" ></script>
   <!-- have a button POST a click via AJAX -->
   <button hx-post="/clicked" hx-swap="outerHTML">
     Click Me
@@ -96,7 +96,7 @@ at this point you can modify `/src/htmx.js` to add features, and then add tests 
 * `/test/ext` - extension tests
 * `/test/manual` - manual tests that cannot be automated
 
-htmx uses the [mocha](https://mochajs.org/) testing framework, the [chai](https://www.chaijs.com/) assertion frame work, 
+htmx uses the [mocha](https://mochajs.org/) testing framework, the [chai](https://www.chaijs.com/) assertion framework 
 and [sinon](https://sinonjs.org/releases/v11.1.1/fake-xhr-and-server/) to mock out AJAX requests.  They are all OK.
 
 ## haiku

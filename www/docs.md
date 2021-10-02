@@ -101,13 +101,13 @@ It can be used via [NPM](https://www.npmjs.com/) as "`htmx.org`" or downloaded o
 [unpkg](https://unpkg.com/browse/htmx.org/) or your other favorite NPM-based CDN:
 
 ``` html
-    <script src="https://unpkg.com/htmx.org@1.5.0"></script>
+    <script src="https://unpkg.com/htmx.org@1.6.0"></script>
 ```
 
 For added security, you can load the script using [Subresource Integrity (SRI)](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity).
 
 ``` html
-    <script src="https://unpkg.com/htmx.org@1.5.0" integrity="sha384-oGA+prIp5Vchu6we2YkI51UtVzN9Jpx2Z7PnR1I78PnZlN8LkrCT4lqqqmDkyrvI" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org@1.6.0" integrity="sha384-G4dtlRlMBrk5fEiRXDsLjriPo8Qk5ZeHVVxS8KhX6D7I9XXJlNqbdvRlp9/glk5D" crossorigin="anonymous"></script>
 ```
 
 ## <a name="ajax"></a> [AJAX](#ajax)
@@ -340,48 +340,25 @@ with any of the following values:
 
 #### <a name="css_transitions"></a>[CSS Transitions](#css_transitions)
 
-htmx makes it easy to use [CSS Transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions) without javascript.  To understand how CSS transitions
-work in htmx, you must first understand the swap & settle model that htmx uses.
-
-When new content is received from a server, before the content is swapped in, the existing
-content of the page is examined for elements that match by the `id` attribute.  If a match
-is found for an element in the new content, the attributes of the old content are copied
-onto the new element before the swap occurs.  The new content is then swapped in, but with the
-*old* attribute values.  Finally, the new attribute values are swapped in, after a "settle" delay
-(100ms by default).
-
-This may seem a bit complicated, but with this mechanic for swapping content, you can write
-CSS transitions from old to new attribute values.
-
-An example will help clarify.  Consider this original content:
+htmx makes it easy to use [CSS Transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions) without 
+javascript.  Consider this HTML content:
 
 ```html
   <div id="div1">Original Content</div>
 ```
 
-And this content, which has been received by htmx after an AJAX request, to replace it:
+Imagine this content is replaced by htmx via an ajax request with this new content:
 
 ```html
   <div id="div1" class="red">New Content</div>
 ```
 
-The first thing that htmx does, before it swaps in this new content, is note that these two elements match by `id` (and tag type).  It therefore swaps the *old* attribute values onto the *new* content:
+Note two things: 
 
-```html
-  <div id="div1">New Content</div>
-```
+* The div has the *same* id in the original an in the new content
+* The `red` class has been added to the new content
 
-Note that the new content no longer has a `class` attribute.  This modified new content is then
-swapped into the DOM.  This is the swap step.
-
-Next, after a "settle" delay, the new div will have its attributes updated to the actual values received from the server:
-
-```html
-  <div id="div1" class="red">New Content</div>
-```
-
-Because this `div` was in the DOM with the original `div`'s attributes, this is will trigger a
-CSS transition.  So you can write, for example, this CSS:
+Given this situation, we can write a CSS transition from the old state to the new state:
 
 ```css
 .red {
@@ -390,11 +367,24 @@ CSS transition.  So you can write, for example, this CSS:
 }
 ```
 
-And the newly swapped content will gently transition to a red text color over one second.
+When htmx swaps in this new content, it will do so in such a way that the CSS transition will apply to the new content,
+giving you a nice, smooth transition to the new state.
 
-All of that may seem a little crazy, but it can be summarized as this:
+So, in summary, all you need to do to use CSS transitions for an element is keep its `id` stable across requests!
 
-> In htmx, all you need to do to use CSS transitions for an element is keep its `id` stable across requests
+You can see the [Animation Examples](/examples/animiations) for more details and live demonstrations.
+
+##### Details
+
+To understand how CSS transitions actually work in htmx, you must understand the underlying swap & settle model that htmx uses.
+
+When new content is received from a server, before the content is swapped in, the existing
+content of the page is examined for elements that match by the `id` attribute.  If a match
+is found for an element in the new content, the attributes of the old content are copied
+onto the new element before the swap occurs.  The new content is then swapped in, but with the
+*old* attribute values.  Finally, the new attribute values are swapped in, after a "settle" delay
+(100ms by default).  A little crazy, but this is what allowes CSS transitions to work without any javascript by
+the developer.
 
 #### <a name="oob_swaps"></a>[Out of Band Swaps](#oob_swaps)
 
@@ -611,10 +601,12 @@ The order of operations in a htmx request are:
     * An optional swap delay is applied (see the [hx-swap](/attributes/hx-swap) attribute)
     * The actual content swap is done
         * the `htmx-swapping` class is removed from the target
+        * the `htmx-added` class is added to each new piece of content
         * the `htmx-settling` class is applied to the target
         * A settle delay is done (default: 100ms)
         * The DOM is settled
         * the `htmx-settling` class is removed from the target
+        * the `htmx-added` class is removed from each new piece of content
 
 You can use the `htmx-swapping` and `htmx-settling` classes to create
 [CSS transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions) between pages.
@@ -688,9 +680,17 @@ See the [extensions page](/extensions#included) for a complete list.
 
 ## <a name="events"></a> [Events & Logging](#events)
 
-Htmx has an extensive events mechanism, which doubles as the logging system.
+Htmx has an extensive [events mechanism](https://htmx.org/reference/#events), which doubles as the logging system.
 
-If you want to register for a given htmx event you can use the following javascript:
+If you want to register for a given htmx event you can use
+
+```js
+   document.body.addEventListener('htmx:load', function(evt) {
+      myJavascriptLib.init(evt.details.elt);
+   });
+```
+ 
+or, if you would prefer, you can use the following htmx helper:
 
 ```javascript
   htmx.on("htmx:load", function(evt) {
@@ -698,8 +698,14 @@ If you want to register for a given htmx event you can use the following javascr
   });
 ```
 
-This event is fired every time an element is loaded into the DOM by htmx, and is effectively the load event.  In
-fact this is so common, you can use the helper function:
+The `htmx:load` event is fired every time an element is loaded into the DOM by htmx, and is effectively the equivalent 
+ to the normal `load` event.  
+
+Some common uses for htmx events are:
+
+## <a name="init_3rd_party_with_events">[Initialize A 3rd Party Library With Events](#init_3rd_party_with_events)
+
+Using the `htmx:load` event to initialize content is so common that htmx provides a helper function:
 
 ```javascript
   htmx.onLoad(function(target) {
@@ -708,7 +714,46 @@ fact this is so common, you can use the helper function:
 ```
 This does the same thing as the first example, but is a little cleaner.
 
-The full set of events can be seen [on the reference page](/reference#events).
+## <a name="config_request_with_events">[Configure a Request With Events](#config_request_with_events)
+
+You can handle the [`htmx:configRequest`](/events/#htmx:configRequest) event in order to modify an AJAX request before it is issued:
+
+```javascript
+document.body.addEventListener('htmx:configRequest', function(evt) {
+    evt.detail.parameters['auth_token'] = getAuthToken(); // add a new parameter into the request
+    evt.detail.headers['Authentication-Token'] = getAuthToken(); // add a new header into the request
+});
+```
+
+Here we add a parameter and header to the request before it is sent.
+
+## <a name="modifying_swapping_behavior_with_events">[Modifying Swapping Behavior With Events](#modifying_swapping_behavior_with_events)
+
+You can handle the [`htmx:beforeSwap`](/events/#htmx:beforeSwap) event in order to modify the swap behavior of htmx:
+
+```javascript
+document.body.addEventListener('htmx:beforeSwap', function(evt) {
+    if(evt.detail.xhr.status === 404){
+        // alert the user when a 404 occurs (maybe use a nicer mechanism than alert())
+        alert("Error: Could Not Find Resource");
+    } else if(evt.detail.xhr.status === 422){
+        // allow 422 responses to swap as we are using this as a signal that
+        // a form was submitted with bad data and want to rerender with the
+        // errors
+        evt.detail.shouldSwap = true;
+    } else if(evt.detail.xhr.status === 418){
+        // if the response code 418 (I'm a teapot) is returned, retarget the
+        // content of the response to the element with the id `teapot`
+        evt.detail.shouldSwap = true;        
+        evt.detail.target = htmx.find("#teapot");
+    }
+});
+```
+
+Here we handle a few [400-level error response codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status#client_error_responses) 
+that would normally not do a swap in htmx.
+
+## <a name="event_naming">[Event Naming](#event_naming)
 
 Note that all events are fired with two different names
 
@@ -716,9 +761,7 @@ Note that all events are fired with two different names
 * Kebab Case
 
 So, for example, you can listen for `htmx:afterSwap` or for `htmx:after-swap`.  This facilitates interoperability
-with other libraries.
- 
-[Alpine.js](https://github.com/alpinejs/alpine/), for example, requires kebab case.
+with other libraries.  [Alpine.js](https://github.com/alpinejs/alpine/), for example, requires kebab case.
 
 ### Logging
 
@@ -960,6 +1003,7 @@ listed below:
 |  `htmx.config.includeIndicatorStyles` | defaults to `true` (determines if the indicator styles are loaded)
 |  `htmx.config.indicatorClass` | defaults to `htmx-indicator`
 |  `htmx.config.requestClass` | defaults to `htmx-request`
+|  `htmx.config.addedClass` | defaults to `htmx-added`
 |  `htmx.config.settlingClass` | defaults to `htmx-settling`
 |  `htmx.config.swappingClass` | defaults to `htmx-swapping`
 |  `htmx.config.allowEval` | defaults to `true`
