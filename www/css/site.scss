@@ -297,7 +297,7 @@ pre {
     overflow: auto;
 }
 
-table.delete-row-example .kutty-swapping {
+table.delete-row-example .htmx-swapping {
   opacity: 0;
   transition: visibility 0s 1s, opacity 1s linear;
 }
@@ -383,6 +383,11 @@ h1,h2,h3,h4{
     {
         position: sticky;
         top: 2vh;
+    }
+
+    .shift-up-img {
+        position:relative;
+        top:-120px
     }
 
 }
