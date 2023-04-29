@@ -29,10 +29,12 @@ These examples may make it a bit easier to get started using htmx with your plat
 - <https://github.com/DamianStanger/hapi-htmx>
 
 ## Python
+- <https://github.com/PyHAT-stack/awesome-python-htmx>
 
 ### Django
 
 - <https://github.com/adamchainz/django-htmx>
+- <https://github.com/spookylukey/django-htmx-patterns/>
 - <https://github.com/idlesign/django-siteajax>
 - <https://github.com/guettli/django-htmx-fun/>
 
@@ -43,6 +45,7 @@ These examples may make it a bit easier to get started using htmx with your plat
 
 ### Flask
 
+- <https://github.com/edmondchuc/flask-htmx>
 - <https://github.com/cscortes/htmxflask>
 
 ### py4web
@@ -74,6 +77,8 @@ These examples may make it a bit easier to get started using htmx with your plat
 
 - <https://github.com/jerriepelser-blog/htmx-with-aspnet-core>
 - <https://github.com/mryderie/aspnet-core-htmx-example>
+- <https://github.com/khalidabuhakmeh/Htmx.Net>
+- <https://github.com/khalidabuhakmeh/Htmx.Net#htmxtaghelpers>
 
 ## Prolog
 
@@ -105,3 +110,14 @@ These examples may make it a bit easier to get started using htmx with your plat
 ## Julia
 
 - <https://github.com/clarkevans/TodoMVC.jl>
+
+## OCaml
+
+- <https://ocaml.org/p/dream-htmx>
+- <https://github.com/yawaramin/dream-html>
+
+## PHP
+
+### CodeIgniter 4
+
+- <https://github.com/michalsn/codeigniter-htmx-demo>

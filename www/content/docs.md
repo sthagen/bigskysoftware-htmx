@@ -114,7 +114,7 @@ The fastest way to get going with htmx is to load it via a CDN. You can simply a
 and get going:
 
 ```html
-<script src="https://unpkg.com/htmx.org@1.9.0" integrity="sha384-aOxz9UdWG0yBiyrTwPeMibmaoq07/d3a96GCbb9x60f3mOt5zwkjdbcHFnKH8qls" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/htmx.org@1.9.2" integrity="sha384-L6OqL9pRWyyFU3+/bjdSri+iIphTN/bvYyM37tICVyOJkWZLpP2vGn6VUEXgzg6h" crossorigin="anonymous"></script>
 ```
 
 While the CDN approach is extremely simple, you may want to consider [not using CDNs in production](https://blog.wesleyac.com/posts/why-not-javascript-cdn).
@@ -1203,7 +1203,7 @@ to scripting in your htmx-based web application:
 * [Consider inline scripting](/essays/hypermedia-friendly-scripting#inline)
 
 The primary integration point between htmx and scripting solutions is the [events](#events) that htmx sends and can
-respond to.  See the SortableJS example in the [3rd Party Javascript](3rd-party) section for a good template for
+respond to.  See the SortableJS example in the [3rd Party Javascript](#3rd-party) section for a good template for
 integrating a JavaScript library with htmx via events.
 
 Scripting solutions that pair well with htmx include:

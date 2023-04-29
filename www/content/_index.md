@@ -32,7 +32,7 @@ By removing these arbitrary constraints, htmx completes HTML as a [hypertext](ht
 <h2>quick start</h2>
 
 ```html
-  <script src="https://unpkg.com/htmx.org@1.9.0"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.2"></script>
   <!-- have a button POST a click via AJAX -->
   <button hx-post="/clicked" hx-swap="outerHTML">
     Click Me
@@ -83,7 +83,7 @@ A huge thank you to all our <a href="https://github.com/sponsors/bigskysoftware?
 </td>
 <td>
         <a href="https://www.peakcrypto.com/">
-          <img src="/img/peakcrypto.png" style="width:100%;max-width:65px">
+          <img alt="Peak Crypto" src="/img/peakcrypto.png" style="width:100%;max-width:65px">
         </a>
 </td>
 </tr>
