@@ -146,7 +146,10 @@ Here are some known implementations of the fragment concept:
   * [jinja_partials package](https://github.com/mikeckennedy/jinja_partials) ([discussion](https://github.com/mikeckennedy/jinja_partials/issues/1) on motivation)
   * [chameleon_partials package](https://github.com/mikeckennedy/chameleon_partials)
   * [htmlgenerator](https://github.com/basxsoftwareassociation/htmlgenerator)
+  * [django-template-partials](https://pypi.org/project/django-template-partials/) ([repository](https://github.com/carltongibson/django-template-partials))
 * .NET
   * [Giraffe.ViewEngine.Htmx](https://github.com/bit-badger/Giraffe.Htmx/tree/main/src/ViewEngine.Htmx)
+* Rust
+  * [MiniJinja](https://docs.rs/minijinja/latest/minijinja/struct.State.html#method.render_block)
 
 Please [let me know](/discord) if you know of others, so I can add them to this list.
