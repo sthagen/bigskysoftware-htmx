@@ -114,7 +114,7 @@ The fastest way to get going with htmx is to load it via a CDN. You can simply a
 and get going:
 
 ```html
-<script src="https://unpkg.com/htmx.org@1.9.5" integrity="sha384-xcuj3WpfgjlKF+FXhSQFQ0ZNr39ln+hwjN3npfM9VBnUskLolQAcN80McRIVOPuO" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
 ```
 
 While the CDN approach is extremely simple, you may want to consider [not using CDNs in production](https://blog.wesleyac.com/posts/why-not-javascript-cdn).
@@ -368,6 +368,9 @@ attribute with a CSS selector to do so:
 Here we call out the indicator explicitly by id.  Note that we could have placed the class on the parent `div` as well
 and had the same effect.
 
+You can also add the [the `disabled` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled) to
+elements for the duration of a request by using the [hx-disabled-elt](@/attributes/hx-disabled-elt.md) attribute.
+
 ### Targets
 
 If you want the response to be loaded into a different element other than the one that made the request, you can
@@ -456,6 +459,31 @@ You can experiment with this new API using the following approaches:
 View Transitions can be configured using CSS, as outlined in [the Chrome documentation for the feature](https://developer.chrome.com/docs/web-platform/view-transitions/#simple-customization).
 
 You can see a view transition example on the [Animation Examples](/examples/animations#view-transitions) page.
+
+#### Swap Options
+
+The [hx-swap](@/attributes/hx-swap.md) attribute supports many options for tuning the swapping behavior of htmx.  For
+example, by default htmx will swap in the title of a title tag found anywhere in the new content.  You can turn this
+behavior off by setting the `ignoreTitle` modifier to true:
+
+```html
+    <button hx-post="/like" hx-swap="outerHTML ignoreTitle:true">Like</button>
+```
+
+The modifiers available on `hx-swap` are:
+
+| Option        | Description                                                                                              |
+|---------------|----------------------------------------------------------------------------------------------------------|
+| `transition`  | `true` or `false`, whether to use the view transition API for this swap                                  |
+| `swap`        | The swap delay to use (e.g. `100ms`) between when old content is cleared and the new content is inserted |
+| `settle`      | The settle delay to use (e.g. `100ms`) between when new content is inserted and when it is settled       |
+| `ignoreTitle` | If set to `true`, any title found in the new content will be ignored and not update the docuemnt title   |
+| `scroll`      | `top` or `bottom`, will scroll the target element to its top or bottom                                   |
+| `show`        | `top` or `bottom`, will scroll the target elements top or bottom into view                               |
+
+All swap modifiers appear after the swap style is specified, and are colon-separated.
+
+See the [hx-swap](@/attributes/hx-swap.md) documentation for more details on these options.
 
 ### Synchronization {#synchronization}
 
@@ -726,8 +754,7 @@ However, you could wrap the htmx-enhanced input in a form element:
         hx-post="/search"
         hx-trigger="keyup changed delay:500ms, search"
         hx-target="#search-results"
-        hx-indicator=".htmx-indicator"
-    >
+        hx-indicator=".htmx-indicator">
 </form>
 ```
 
@@ -1610,6 +1637,7 @@ listed below:
 | `htmx.config.globalViewTransitions`   | if set to `true`, htmx will use the [View Transition](https://developer.mozilla.org/en-US/docs/Web/API/View_Transitions_API) API when swapping in new content.             |
 | `htmx.config.methodsThatUseUrlParams` | defaults to `["get"]`, htmx will format requests with this method by encoding their parameters in the URL, not the request body                                            |
 | `htmx.config.selfRequestsOnly`        | defaults to `false`, if set to `true` will only allow AJAX requests to the same domain as the current document                                                             |
+| `htmx.config.ignoreTitle`             | defaults to `false`, if set to `true` htmx will not update the title of the document when a `title` tag is found in new content                                            |
 
 </div>
 

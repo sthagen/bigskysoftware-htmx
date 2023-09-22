@@ -3,11 +3,12 @@ title = "hx-swap"
 +++
 
 The `hx-swap` attribute allows you to specify how the response will be swapped in relative to the
-[target](@/attributes/hx-target.md) of an AJAX request.
+[target](@/attributes/hx-target.md) of an AJAX request. If you do not specify the option, the default is
+`htmx.config.defaultSwapStyle` (`innerHTML`).
 
 The possible values of this attribute are:
 
-* `innerHTML` - The default, replace the inner html of the target element
+* `innerHTML` - Replace the inner html of the target element
 * `outerHTML` - Replace the entire target element with the response
 * `beforebegin` - Insert the response before the target element
 * `afterbegin` - Insert the response before the first child of the target element
@@ -57,6 +58,11 @@ modifier:
 ```
 
 These attributes can be used to synchronize htmx with the timing of CSS transition effects.
+
+#### Title: `ignoreTitle`
+
+By default, htmx will update the title of the page if it finds a `<title>` tag in the response content.  You can turn
+off this behavior by setting the `ignoreTitle` option to true.
 
 #### Scrolling: `scroll` & `show`
 
