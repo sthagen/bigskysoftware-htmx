@@ -1,7 +1,7 @@
 +++
 title = "Model/View/Controller (MVC)"
-date = 2023-01-16
-updated = 2023-01-16
+date = 2024-01-16
+updated = 2024-01-16
 [taxonomies]
 author = ["Carson Gross"]
 tag = ["posts"]
@@ -20,7 +20,7 @@ disentangle your "churny" web application API endpoints that return HTML from yo
 stable, regular & expressive JSON Data API.
 
 In looking back at conversations I've had around this idea with people, I think that I have been assuming familiarity
-with a pattern that, perhaps, many people are as deeply familiar with as I am: the 
+with a pattern that many people are not as familiar with as I am: the 
 [Model/View/Controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) (MVC) 
 pattern.
 
