@@ -2,9 +2,58 @@
 insert_anchor_links = "left"
 +++
 
+<style type="text/css">
+.wuw {
+  display:none;
+}
+.uwu {
+  display:none;
+}
+body.lmao .dark-hero .main {
+    display:none;
+}
+body.lmao .dark-hero .wuw {
+    display:block;
+    padding-top: 24px;
+}
+body.lmao .dark-hero .uwu {
+    display:none;
+}
+body.kawaii .dark-hero .main {
+    display:none;
+}
+body.kawaii .dark-hero .wuw {
+    display:none;
+}
+body.kawaii .dark-hero .uwu {
+    display:block;
+    padding-top: 24px;
+}
+</style>
+<script type="application/javascript">
+if(window.location.search=="?wuw=true" || window.location.search=="?suw=true") {
+  document.body.classList.add('lmao');
+}
+if(window.location.search=="?uwu=true") {
+  document.body.classList.add('kawaii');
+}
+</script>
+
 <div class="dark-hero full-width" classes="add appear">
-  <span class="logo dark">&lt;<span class="blue">/</span>&gt; <span class="no-mobile">htm<span class="blue">x</span></span></span>
-  <sub class="no-mobile"><i>high power tools for HTML</i></sub>
+  <div class="main">
+      <span class="logo dark">&lt;<span class="blue">/</span>&gt; <span class="no-mobile">htm<span class="blue">x</span></span></span>
+      <sub class="no-mobile"><i>high power tools for HTML</i></sub>
+  </div>
+  <div class="wuw">
+     <a href="https://swag.htmx.org/products/shut-up-warren-tee">
+       <img src="/img/wuw.png">
+     </a>
+  </div>
+  <div class="uwu">
+     <a href="https://swag.htmx.org/products/htmx-katakana-shirt">
+       <img src="/img/kawaii.png">
+     </a>
+  </div>
 </div>
 
 <div style="border: 1px solid lightgrey; margin:24px;padding:12px;border-radius: 8px; background-color: whitesmoke; filter: drop-shadow(3px 3px darkgray)">
