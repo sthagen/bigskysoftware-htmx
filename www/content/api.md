@@ -2,7 +2,7 @@
 title = "Javascript API"
 +++
 
-While it is not a focus of the library, htmx does provide a small API of helper methods, intended mainly for [extension development](https://extensions.htmx.org) or for working with [events](@/events.md).
+While it is not a focus of the library, htmx does provide a small API of helper methods, intended mainly for [extension development](https://htmx.org/extensions) or for working with [events](@/events.md).
 
 The [hyperscript](https://hyperscript.org) project is intended to provide more extensive scripting support
 for htmx-based applications.
@@ -183,7 +183,7 @@ to provide custom WebSocket setup.
 
 ### Method - `htmx.defineExtension()` {#defineExtension}
 
-Defines a new htmx [extension](https://extensions.htmx.org).
+Defines a new htmx [extension](https://htmx.org/extensions).
 
 ##### Parameters
 
@@ -318,12 +318,14 @@ Adds an event listener to an element
 
 * `eventName` - the event name to add the listener for
 * `listener` - the listener to add
+* `options` - an [options](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#options) object (or a [useCapture](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#usecapture) boolean) to add to the event listener (optional)
 
 or
 
 * `target` - the element to add the listener to
 * `eventName` - the event name to add the listener for
 * `listener` - the listener to add
+* `options` - an [options](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#options) object (or a [useCapture](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#usecapture) boolean) to add to the event listener (optional)
 
 ##### Example
 
@@ -333,6 +335,9 @@ or
 
     // add a click listener to the given div
     var myEventListener = htmx.on("#my-div", "click", function(evt){ console.log(evt); });
+
+    // add a click listener to the given div that should only be invoked once
+    var myEventListener = htmx.on("#my-div", "click", function(evt){ console.log(evt); }, { once: true });
 ```
 
 ### Method - `htmx.onLoad()` {#onLoad}
