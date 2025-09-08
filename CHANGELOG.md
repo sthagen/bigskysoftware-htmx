@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.7] - 2025-09-08
+
+* Fix not preventing link when inside htmx enabled element (fixes https://github.com/bigskysoftware/htmx/issues/3395)
+* Implement `reportValidity()` for reporting proper form validation errors behind config flag (fixes https://github.com/bigskysoftware/htmx/issues/2372)
+* Update indicator style to have `visibility:hidden` for screen readers (fixes https://github.com/bigskysoftware/htmx/issues/3354)
+* Bugfix: swap="outerHTML" on <div> with style attribute leaves htmx-swapping class behind (see https://github.com/bigskysoftware/htmx/pull/3341)
+
 ## [2.0.6] - 2025-06-27
 
 * [Fix](https://github.com/bigskysoftware/htmx/pull/3357) a [regression](https://github.com/bigskysoftware/htmx/issues/3356) 
