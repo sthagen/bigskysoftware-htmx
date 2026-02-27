@@ -168,8 +168,8 @@ I also think that what this means varies by experience level.
 
 Senior programmers who already have a lot of experience from the pre-AI era are in a good spot to use LLMs effectively:
 they know what "good" code looks like, they have experience with building larger systems and know what matters and
-what doesn't.  The danger with senior programmers is that they stop programming entirely and start suffering from brain
-rot.  
+what doesn't.  The danger with senior programmers is that they stop programming entirely and start suffering from 
+[brain rot](https://www.media.mit.edu/publications/your-brain-on-chatgpt/).  
 
 Particularly dangerous is firing off prompts and then getting sucked into 
 [The Eternal Scroll](https://theneverendingstory.fandom.com/wiki/The_Nothing) while waiting.  
@@ -181,7 +181,7 @@ I typically try to use LLMs in the following way:
 * To analyze existing code to better understand it and find issues and inconsistencies in it
 * To help organize my thoughts for larger projects I want to take on
 * To generate relatively small bits of code for systems I am working on
-* To generate code that I don't enjoy writing (regular expressions & CSS)
+* To generate code that I don't enjoy writing (e.g. regular expressions & CSS)
 * To generate demos/exploratory code that I am willing to throw away or don't intend to maintain deeply
 * To suggest tests for a particular feature I am working on
 
