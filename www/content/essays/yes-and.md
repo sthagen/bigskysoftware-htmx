@@ -44,7 +44,7 @@ Because of this, I warn my students:
 I explain that, if they don't write the code, they will not be able to effectively _read_ the code.  The ability to 
 read code is certainly going to be valuable, maybe _more_ valuable, in an AI-based coding future.
 
-If you can't read the code you are going to fall into [The Sorcerer's Apprentice](https://www.youtube.com/watch?v=m-W8vUXRfxU),
+If you can't read the code you are going to fall into [The Sorcerer's Apprentice Trap](https://www.youtube.com/watch?v=m-W8vUXRfxU),
 creating systems [you don't understand and can't control](https://www.youtube.com/watch?v=GFiWEjCedzY).
 
 ### Is Coding &rarr; Prompting like Assembly &rarr; High Level Coding?
