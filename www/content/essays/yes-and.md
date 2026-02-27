@@ -201,10 +201,12 @@ and you may be criticized for being slow.  The work dynamics here are important 
 prioritizes speed over understanding (as many are currently) you need to accept that and not get fired.
 
 However, I think that this is a temporary situation and that soon companies are going to realize that vibe coding at 
-speed suffers from worse complexity explosion issues than well understood, deliberate code does.  At that point I expect
-slower, more deliberate coding with AI assistance will be understood as the best way to utilize this new technology.
+speed suffers from worse complexity explosion issues than well understood, deliberate coding does.  
 
-Where AI can help juniors is in accelerating the road to senior developer by eliminating accidental complexity that often
+At that point I expect slower, more deliberate coding with AI assistance will be understood as the best way to utilize 
+this new technology.
+
+Where AI _can_ help juniors is in accelerating the road to senior developer by eliminating accidental complexity that often
 trips juniors up.  As I said above, viewing AI as a useful although sometimes overly-eager helper rather than a servant
 can be very effective in understanding the shape of code bases, what the APIs and techniques available for a particular
 problem are, how a given build system or programming language works, etc.
