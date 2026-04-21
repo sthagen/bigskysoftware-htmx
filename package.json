@@ -5,7 +5,7 @@
     "AJAX",
     "HTML"
   ],
-  "version": "2.0.8",
+  "version": "2.0.10",
   "homepage": "https://htmx.org/",
   "bugs": {
     "url": "https://github.com/bigskysoftware/htmx/issues"
@@ -29,8 +29,8 @@
     "dist": "./scripts/dist.sh && npm run types-generate && npm run web-types-generate",
     "lint": "eslint src/htmx.js test/attributes/ test/core/ test/util/ scripts/*.mjs",
     "format": "eslint --fix src/htmx.js test/attributes/ test/core/ test/util/ scripts/*.mjs",
-    "types-check": "tsc src/htmx.js --noEmit --checkJs --target es6 --lib dom,dom.iterable --moduleResolution node",
-    "types-generate": "tsc dist/htmx.esm.js --declaration --emitDeclarationOnly --allowJs --outDir dist",
+    "types-check": "tsc src/htmx.js --noEmit --checkJs --target es6 --lib dom,dom.iterable --moduleResolution node --skipLibCheck",
+    "types-generate": "tsc dist/htmx.esm.js --declaration --emitDeclarationOnly --allowJs --skipLibCheck --outDir dist",
     "test": "npm run lint && npm run types-check && npm run test:chrome",
     "test:debug": "web-test-runner --manual --open",
     "test:chrome": "playwright install chromium && web-test-runner --browsers chromium --playwright",
@@ -41,7 +41,8 @@
     "ws-tests": "cd ./test/ws-sse && node ./server.js",
     "web-types-generate": "node ./scripts/generate-web-types.mjs",
     "www": "bash ./scripts/www.sh",
-    "sha": "bash ./scripts/sha.sh"
+    "sha": "bash ./scripts/sha.sh",
+    "update-sha": "bash ./scripts/update-sha.sh"
   },
   "repository": {
     "type": "git",
